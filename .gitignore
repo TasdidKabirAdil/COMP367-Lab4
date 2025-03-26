@@ -1,0 +1,17 @@
+# Build Folders
+bin/
+obj/
+publish/
+out/
+
+# User-Specific Files
+*.user
+*.suo
+*.vs
+.vscode/
+
+# Logs and Temporary Files
+logs/
+*.log
+*.tmp
+*.cache
