@@ -9,11 +9,11 @@ trigger:
       - main
 
 pool:
-  name: 'COMP367'  # Make sure your agent pool name is correct
+  name: 'COMP367'
 
 variables:
   buildConfiguration: 'Release'
-  artifactFeed: 'tadil0977'  # Replace with your Azure Artifacts feed name
+  artifactFeed: 'YourProjectName/tadil0977'  # Update with project/feed
 
 steps:
   - task: UseDotNet@2
@@ -21,7 +21,6 @@ steps:
     inputs:
       packageType: 'sdk'
       version: '8.x'
-      installationPath: $(Agent.ToolsDirectory)/dotnet
 
   - task: NuGetToolInstaller@1
     displayName: 'Install NuGet Tool'
@@ -57,11 +56,11 @@ steps:
   - task: NuGetAuthenticate@1
     displayName: 'Authenticate with Azure Artifacts'
 
-  - task: NuGetCommand@2
+  - task: DotNetCoreCLI@2
     displayName: 'Push to Azure Artifacts Feed'
     inputs:
-      command: 'push'
+      command: 'nuget push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      feedPublish: '$(artifactFeed)'
       nuGetFeedType: 'internal'
-      publishVstsFeed: 'tadil0977'
-
+      verbosityPush: Detailed
