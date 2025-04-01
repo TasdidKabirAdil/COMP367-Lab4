@@ -54,11 +54,14 @@ steps:
       configuration: '$(buildConfiguration)'
       outputDirectory: '$(Build.ArtifactStagingDirectory)'
 
+  - task: NuGetAuthenticate@1
+    displayName: 'Authenticate with Azure Artifacts'
+
   - task: NuGetCommand@2
     displayName: 'Push to Azure Artifacts Feed'
     inputs:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
       nuGetFeedType: 'internal'
-      publishVstsFeed: '$(artifactFeed)'
+      publishVstsFeed: 'tadil0977'
 
