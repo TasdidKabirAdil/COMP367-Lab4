@@ -4,17 +4,61 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  branches:
+    include:
+      - main
 
 pool:
-  name: 'COMP367'  # This is your self-hosted agent pool (Windows)
+  name: 'COMP367'  # Make sure your agent pool name is correct
+
+variables:
+  buildConfiguration: 'Release'
+  artifactFeed: 'tadil0977'  # Replace with your Azure Artifacts feed name
 
 steps:
-- powershell: Write-Output "Hello, world!"
-  displayName: 'Run a one-line PowerShell script'
+  - task: UseDotNet@2
+    displayName: 'Use .NET 8 SDK'
+    inputs:
+      packageType: 'sdk'
+      version: '8.x'
+      installationPath: $(Agent.ToolsDirectory)/dotnet
 
-- powershell: |
-    Write-Output "Add other tasks to build, test, and deploy your project."
-    Write-Output "See https://aka.ms/yaml"
-  displayName: 'Run a multi-line PowerShell script'
+  - task: NuGetToolInstaller@1
+    displayName: 'Install NuGet Tool'
+
+  - task: NuGetCommand@2
+    displayName: 'Restore NuGet Packages'
+    inputs:
+      command: 'restore'
+      restoreSolution: '**/*.sln'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Build the Project'
+    inputs:
+      command: 'build'
+      projects: '**/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Run Unit Tests'
+    inputs:
+      command: 'test'
+      projects: '**/*Tests.csproj'
+      arguments: '--configuration $(buildConfiguration) --no-build'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Pack NuGet Package'
+    inputs:
+      command: 'pack'
+      packagesToPack: '**/*.csproj'
+      configuration: '$(buildConfiguration)'
+      outputDirectory: '$(Build.ArtifactStagingDirectory)'
+
+  - task: NuGetCommand@2
+    displayName: 'Push to Azure Artifacts Feed'
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '$(artifactFeed)'
 
