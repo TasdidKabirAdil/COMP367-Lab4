@@ -13,7 +13,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  artifactFeed: 'COMP367-Lab4/tadil0977'  # Update with project/feed
+  artifactFeed: 'tadil0977'  # Update with project/feed
 
 steps:
   - task: UseDotNet@2
@@ -56,11 +56,11 @@ steps:
   - task: NuGetAuthenticate@1
     displayName: 'Authenticate with Azure Artifacts'
 
-  - task: DotNetCoreCLI@2
+  - task: NuGetCommand@2
     displayName: 'Push to Azure Artifacts Feed'
     inputs:
-      command: 'nuget push'
+      command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-      feedPublish: '$(artifactFeed)'
       nuGetFeedType: 'internal'
-      verbosityPush: Detailed
+      publishVstsFeed: '$(artifactFeed)'  # Use "ProjectName/FeedName" if project-scoped
+      allowPackageConflicts: false
