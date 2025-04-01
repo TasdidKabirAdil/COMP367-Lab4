@@ -13,7 +13,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  artifactFeed: 'YourProjectName/tadil0977'  # Update with project/feed
+  artifactFeed: 'COMP367-Lab4/tadil0977'  # Update with project/feed
 
 steps:
   - task: UseDotNet@2
