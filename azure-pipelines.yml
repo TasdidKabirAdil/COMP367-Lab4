@@ -9,11 +9,10 @@ trigger:
       - main
 
 pool:
-  name: 'COMP367'
+  vmImage: 'windows-latest'
 
 variables:
   buildConfiguration: 'Release'
-  artifactFeed: 'tadil0977'  # Update with project/feed
 
 steps:
   - task: UseDotNet@2
@@ -21,6 +20,7 @@ steps:
     inputs:
       packageType: 'sdk'
       version: '8.x'
+      installationPath: $(Agent.ToolsDirectory)/dotnet
 
   - task: NuGetToolInstaller@1
     displayName: 'Install NuGet Tool'
@@ -62,5 +62,4 @@ steps:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
       nuGetFeedType: 'internal'
-      publishVstsFeed: '$(artifactFeed)'  # Use "ProjectName/FeedName" if project-scoped
-      allowPackageConflicts: false
+      publishVstsFeed: 'tadil0977' 
