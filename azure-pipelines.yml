@@ -13,7 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  feedName: 'tadil0977' # your Azure Artifacts feed
+  feedName: 'new-feed' # your Azure Artifacts feed
 
 steps:
 - task: NuGetToolInstaller@1
