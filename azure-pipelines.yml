@@ -59,7 +59,7 @@ steps:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: '$(feedName)'
+    publishVstsFeed: 'tadil0977/tadil0977'
 
 # (Optional) Publish standard build artifacts to pipeline
 - task: PublishBuildArtifacts@1
