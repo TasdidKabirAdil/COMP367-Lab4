@@ -9,10 +9,10 @@ trigger:
       - main
 
 pool:
-  vmImage: 'windows-latest'
+  name: 'COMP367'
 
 variables:
-  buildConfiguration: 'Release'
+  artifactFeed: 'COMP367-Lab4/tadil0977'
 
 steps:
   - task: UseDotNet@2
@@ -62,4 +62,5 @@ steps:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
       nuGetFeedType: 'internal'
-      publishVstsFeed: 'tadil0977' 
+      publishVstsFeed: '$(artifactFeed)' 
+      allowPackageConflicts: false
