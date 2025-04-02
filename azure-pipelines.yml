@@ -7,13 +7,13 @@ trigger:
 - main
 
 pool:
-  name: 'COMP367'  # or 'windows-latest' if using Microsoft-hosted agents
+  name: 'COMP367' 
 
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  feedName: 'tadil0977' # your Azure Artifacts feed
+  feedName: 'tadil0977' 
 
 steps:
 - task: NuGetToolInstaller@1
@@ -59,7 +59,7 @@ steps:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: 'tadil0977/tadil0977'
+    publishVstsFeed: '$(feedName)'
 
 # (Optional) Publish standard build artifacts to pipeline
 - task: PublishBuildArtifacts@1
