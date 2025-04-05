@@ -1,0 +1,59 @@
+## Ignore Visual Studio files
+.vs/
+*.user
+*.suo
+
+## Ignore build results
+bin/
+obj/
+
+## Ignore .NET Core stuff
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Ignore Rider files
+.idea/
+
+## Ignore user secrets
+secrets.json
+
+## Ignore ASP.NET-specific stuff (just in case)
+wwwroot/
+node_modules/
+bower_components/
+
+## Ignore logs and temp
+*.log
+*.tlog
+*.tmp
+*.bak
+
+## Ignore system files
+Thumbs.db
+.DS_Store
+
+## Ignore global JSON
+global.json
+
+## Ignore packages if not committed
+packages/
+*.nupkg
+*.snupkg
+
+## Ignore ReSharper files
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+## Ignore test results
+TestResults/
+
+## Ignore coverage results
+coverage/
+*.coverage
+*.coveragexml
+
+## Optional: ignore environment files
+.env
+.env.*
